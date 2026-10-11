@@ -1,35 +1,34 @@
-package com.example.gestion_academica.model;
+package com.example.gestion_academica.domain.model;
 
 import jakarta.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "NOTA")
-public class Nota {
+@Table(name = "ASISTENCIA")
+public class Asistencia {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_nota")
+    @Column(name = "id_asistencia")
     private Integer id;
-
-    @Column(name = "valor", nullable = false, precision = 4, scale = 2)
-    private BigDecimal valor;
 
     @Column(name = "fecha", nullable = false)
     private LocalDate fecha;
+
+    @Column(name = "estado", nullable = false, length = 20)
+    private String estado;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_matricula", nullable = false)
     private Matricula matricula;
 
-    public Nota() {
+    public Asistencia() {
     }
 
-    public Nota(Integer id, BigDecimal valor, LocalDate fecha, Matricula matricula) {
+    public Asistencia(Integer id, LocalDate fecha, String estado, Matricula matricula) {
         this.id = id;
-        this.valor = valor;
         this.fecha = fecha;
+        this.estado = estado;
         this.matricula = matricula;
     }
 
@@ -41,20 +40,20 @@ public class Nota {
         this.id = id;
     }
 
-    public BigDecimal getValor() {
-        return valor;
-    }
-
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
-    }
-
     public LocalDate getFecha() {
         return fecha;
     }
 
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public Matricula getMatricula() {
@@ -67,10 +66,10 @@ public class Nota {
 
     @Override
     public String toString() {
-        return "Nota{" +
+        return "Asistencia{" +
                 "id=" + id +
-                ", valor=" + valor +
                 ", fecha=" + fecha +
+                ", estado='" + estado + '\'' +
                 ", matricula=" + (matricula != null ? matricula.getId() : null) +
                 '}';
     }

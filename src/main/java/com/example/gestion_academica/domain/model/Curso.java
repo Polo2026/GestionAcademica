@@ -1,4 +1,4 @@
-package com.example.gestion_academica.model;
+package com.example.gestion_academica.domain.model;
 
 import jakarta.persistence.*;
 

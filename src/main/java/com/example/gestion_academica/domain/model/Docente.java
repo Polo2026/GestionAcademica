@@ -1,14 +1,14 @@
-package com.example.gestion_academica.model;
+package com.example.gestion_academica.domain.model;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "ESTUDIANTE")
-public class Estudiante {
+@Table(name = "DOCENTES")
+public class Docente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_estudiante")
+    @Column(name = "id_docente")
     private Integer id;
 
     @Column(name = "primer_apellido", nullable = false, length = 60)
@@ -20,26 +20,14 @@ public class Estudiante {
     @Column(name = "nombre", nullable = false, length = 60)
     private String nombre;
 
-    @Column(name = "email", length = 100)
-    private String email;
-
-    public Estudiante() {
+    public Docente() {
     }
 
-    public Estudiante(Integer id, String primerApellido, String segundoApellido, String nombre, String email) {
+    public Docente(Integer id, String primerApellido, String segundoApellido, String nombre) {
         this.id = id;
         this.primerApellido = primerApellido;
         this.segundoApellido = segundoApellido;
         this.nombre = nombre;
-        this.email = email;
-    }
-
-    public String getPrimerApellido() {
-        return primerApellido;
-    }
-
-    public void setPrimerApellido(String primerApellido) {
-        this.primerApellido = primerApellido;
     }
 
     public Integer getId() {
@@ -48,6 +36,14 @@ public class Estudiante {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getPrimerApellido() {
+        return primerApellido;
+    }
+
+    public void setPrimerApellido(String primerApellido) {
+        this.primerApellido = primerApellido;
     }
 
     public String getSegundoApellido() {
@@ -66,22 +62,13 @@ public class Estudiante {
         this.nombre = nombre;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     @Override
     public String toString() {
-        return "Estudiante{" +
+        return "Docente{" +
                 "id=" + id +
                 ", primerApellido='" + primerApellido + '\'' +
                 ", segundoApellido='" + segundoApellido + '\'' +
                 ", nombre='" + nombre + '\'' +
-                ", email='" + email + '\'' +
                 '}';
     }
 }
