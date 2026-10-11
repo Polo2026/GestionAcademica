@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: gestion_academica
+
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;databaseName=GestionAcademica;encrypt=true;trustServerCertificate=true
+    username: app_java
+    password: Clave_Segura123!
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
