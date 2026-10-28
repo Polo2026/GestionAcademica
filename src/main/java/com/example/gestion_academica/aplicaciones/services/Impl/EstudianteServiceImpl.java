@@ -54,16 +54,14 @@ public class EstudianteServiceImpl implements EstudianteService {
     @Override
     //hacer validaciones con findById
     public void delete(Estudiante estudiante) {
-
         if (estudiante == null){
             throw new EstudianteNullException("Los datos del estudiante son Obligatorios");
         }
-
         Estudiante estudianteEncontrado = estudianteRepository.findById(estudiante.getId()).orElse(null);
         if(estudianteEncontrado == null){
             throw new EstudianteNoEncontradoException("Estudiante No encontrado");
         }
-        estudianteRepository.deleteById(estudianteEncontrado);
+        estudianteRepository.deleteById(estudiante.getId());
     }
 
     @Override

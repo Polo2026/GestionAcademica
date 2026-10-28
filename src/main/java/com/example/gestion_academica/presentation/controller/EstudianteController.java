@@ -4,8 +4,13 @@ package com.example.gestion_academica.presentation.controller;
 
 import com.example.gestion_academica.aplicaciones.services.EstudianteService;
 import com.example.gestion_academica.domain.model.Estudiante;
+import com.example.gestion_academica.exception.EstudianteEncontradoException;
+import com.example.gestion_academica.exception.EstudianteInvalidoException;
+import com.example.gestion_academica.exception.EstudianteNoEncontradoException;
+import com.example.gestion_academica.exception.EstudianteNullException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,12 +36,24 @@ public class EstudianteController {
 
     @PostMapping
     public void save(@RequestBody Estudiante estudiante) {
-        estudianteService.save(estudiante);
+        try {
+            estudianteService.save(estudiante);
+        }catch (EstudianteInvalidoException exception){
+            System.out.println(exception.getMessage());
+        }catch (EstudianteNoEncontradoException exception){
+            System.out.println(exception.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) {
-        estudianteService.delete(id);
+        try {
+            estudianteService.delete(id);
+        }catch (EstudianteNullException exception){
+            System.out.println(exception.getMessage());
+        }catch (EstudianteNoEncontradoException exception){
+            System.out.println(exception.getMessage());
+        }
     }
 
     @PutMapping
