@@ -42,7 +42,7 @@ public class Estudiante {
         this.primerApellido = primerApellido;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

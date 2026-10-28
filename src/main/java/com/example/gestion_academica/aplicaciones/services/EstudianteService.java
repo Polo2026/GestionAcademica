@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface EstudianteService {
-    void save(Estudiante estudiante);
+    Estudiante save(Estudiante estudiante);
     List<Estudiante> findAll();
     Optional<Estudiante> findById(Integer id);
     void delete(Integer id);

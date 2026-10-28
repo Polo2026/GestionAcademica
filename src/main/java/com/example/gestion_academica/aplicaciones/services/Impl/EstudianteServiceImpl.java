@@ -2,7 +2,12 @@ package com.example.gestion_academica.aplicaciones.services.Impl;
 
 import com.example.gestion_academica.aplicaciones.services.EstudianteService;
 import com.example.gestion_academica.domain.model.Estudiante;
+import com.example.gestion_academica.exception.EstudianteEncontradoException;
+import com.example.gestion_academica.exception.EstudianteInvalidoException;
+import com.example.gestion_academica.exception.EstudianteNoEncontradoException;
+import com.example.gestion_academica.exception.EstudianteNullException;
 import com.example.gestion_academica.infraestructura.repositorio.EstudianteRepository;
+import com.sun.org.apache.bcel.internal.generic.IfInstruction;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,14 +22,28 @@ public class EstudianteServiceImpl implements EstudianteService {
         this.estudianteRepository = estudianteRepository;
     }
 
-    @Override
-    public void save(Estudiante estudiante) {
-        estudianteRepository.save(estudiante);
+
+    //Codigo correcto
+
+    public Estudiante save (Estudiante estudiante){
+        if (estudiante==null){
+            throw new EstudianteInvalidoException("Los datos del estudiante son Obligatorios");
+        }
+        Estudiante estudianteEncontrado = estudianteRepository.findById(estudiante.getId()).orElse(null);
+
+        if (estudianteEncontrado != null){
+            throw new EstudianteEncontradoException("El estudiante con ID "+ estudiante.getId()+" ya existe");
+        }
+        return estudianteRepository.save(estudiante);
     }
 
     @Override
     public List<Estudiante> findAll() {
+
         return estudianteRepository.findAll();
+
+
+
     }
 
     @Override
@@ -33,8 +52,18 @@ public class EstudianteServiceImpl implements EstudianteService {
     }
 
     @Override
-    public void delete(Integer id) {
-        estudianteRepository.deleteById(id);
+    //hacer validaciones con findById
+    public void delete(Estudiante estudiante) {
+
+        if (estudiante == null){
+            throw new EstudianteNullException("Los datos del estudiante son Obligatorios");
+        }
+
+        Estudiante estudianteEncontrado = estudianteRepository.findById(estudiante.getId()).orElse(null);
+        if(estudianteEncontrado == null){
+            throw new EstudianteNoEncontradoException("Estudiante No encontrado");
+        }
+        estudianteRepository.deleteById(estudianteEncontrado);
     }
 
     @Override
